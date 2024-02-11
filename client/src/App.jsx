@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Event from "./components/Event";
+import EventDetails from "./components/EventDetails";
 function App() {
   return (
     <Router>
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/event/:id" element={<EventDetails />} />
         </Routes>
       </div>
     </Router>

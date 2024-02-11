@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Event = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
@@ -25,13 +26,18 @@ const Event = () => {
             {data.map((event) => (
               <li key={event.id}>
                 <div className="flex w-full flex-col justify-center items-center">
-                  <p className="text-4xl"> {event.event_name}</p>
-                  <img
-                    src={event.event_image}
-                    alt="Event Image"
-                    width={500}
-                    height={500}
-                  />
+                  <Link to={`/event/${event.id}`}>
+                    Ver detalles
+                    <p className="text-4xl"> {event.event_name}</p>
+                    Hora: <p>{Date(event.event_date)}</p>
+                    <img
+                      className=" rounded-2xl"
+                      src={event.event_image}
+                      alt="Event Image"
+                      width={500}
+                      height={500}
+                    />
+                  </Link>
                 </div>
               </li>
             ))}

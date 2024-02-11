@@ -42,13 +42,13 @@ class Seat(models.Model):
     row = models.CharField(max_length=255)
     number = models.IntegerField()
     status = models.ForeignKey(
-        Status, on_delete=models.CASCADE)
+        Status, on_delete=models.CASCADE, default=2)
     price = models.FloatField()
     group_seat = models.ForeignKey(
         GroupSeat, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.row)
+        return str(self.row) + str(self.number)
 
 
 class Ticket(models.Model):
