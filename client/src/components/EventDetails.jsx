@@ -27,7 +27,7 @@ const EventDetails = () => {
     <div className="flex  max-md:flex-col ">
       <div className="flex flex-col justify-center items-center w-full ">
         {eventDetails ? (
-          <div className="flex flex-col items-center gap-9 my-8 text-3xl  ">
+          <div className="flex flex-col items-center gap-9 my-8 text-3xl ">
             <div className="flex items-center justify-between px-8 w-full ">
               <Link to={"../event"}>
                 <IoArrowBack></IoArrowBack>
@@ -50,7 +50,7 @@ const EventDetails = () => {
         )}
       </div>
       <div className="flex w-full">
-        {eventDetails && <SeatList eventId={eventDetails.id} />}{" "}
+        {eventDetails && <SeatList eventId={eventDetails.id} />}
       </div>
     </div>
   );

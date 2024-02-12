@@ -62,7 +62,7 @@ class Ticket(models.Model):
     price = models.FloatField()
 
     def __str__(self):
-        return self.ticket_id
+        return str(self.ticket_id) + str(self.event)
 
 
 class EntryHistory(models.Model):

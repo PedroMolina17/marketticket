@@ -27,10 +27,21 @@ const SeatList = ({ eventId }) => {
     setSeatSelected(a + b);
   };
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/buy_seat/${seatSelected}/`
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error comprando el asiento:", error);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-start w-full my-5 text-4xl gap-7">
+    <div className="flex flex-col items-center justify-center w-full my-5 text-4xl gap-7 ">
       <h3>Sillas</h3>
-      <div className="grid grid-cols-12 text-4xl gap-4 text-gray-500">
+      <div className="grid grid-cols-12 text-4xl gap-4 text-gray-500 max-md:text-2xl max-md:gap-2 ">
         {seats.map((seat) => (
           <Link
             key={seat.id}
@@ -56,6 +67,7 @@ const SeatList = ({ eventId }) => {
         style={{
           pointerEvents: seatSelected === "No seleccionado" ? "none" : "auto",
         }}
+        onClick={() => handleSubmit(seatSelected)}
       >
         Comprar
       </button>
