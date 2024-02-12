@@ -7,6 +7,7 @@ import { PiTelevisionSimple } from "react-icons/pi";
 
 const SeatList = ({ eventId }) => {
   const [seats, setSeats] = useState([]);
+  const [seatId, setSeatId] = useState(null);
   const [seatSelected, setSeatSelected] = useState("No seleccionado");
   useEffect(() => {
     const fetchSeats = async () => {
@@ -29,15 +30,32 @@ const SeatList = ({ eventId }) => {
 
   const handleSubmit = async () => {
     try {
+      // Obtener el token CSRF de la cookie
+      const csrftoken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("csrftoken="))
+        .split("=")[1];
+
       const response = await axios.post(
-        `http://127.0.0.1:8000/buy_seat/${seatSelected}/`
+        `http://localhost:8000/events/buy_seat/${seatId}/`,
+        {
+          // Datos del cuerpo de la solicitud, si es necesario
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "X-CSRFToken": csrftoken,
+          },
+        }
       );
+
+      // Inspeccionar la respuesta
       console.log(response.data);
     } catch (error) {
-      console.error("Error comprando el asiento:", error);
+      // Inspeccionar la respuesta de error
+      console.error("Error comprando el asiento:", error.response.data);
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center w-full my-5 text-4xl gap-7 ">
       <h3>Sillas</h3>
@@ -48,9 +66,10 @@ const SeatList = ({ eventId }) => {
             className={`grid col-span-1  hover:text-blue-500 ${
               seat.status === 1 ? "text-red-500" : ""
             }${seatSelected === seat.row + seat.number ? "text-blue-500" : ""}`}
-            onClick={() =>
-              seat.status !== 1 && handleSelectedSeat(seat.row, seat.number)
-            }
+            onClick={() => {
+              seat.status !== 1 && handleSelectedSeat(seat.row, seat.number);
+              setSeatId(seat.id);
+            }}
             style={{ pointerEvents: seat.status === 1 ? "none" : "auto" }}
             disabled={seat.status === 1}
           >
@@ -67,7 +86,7 @@ const SeatList = ({ eventId }) => {
         style={{
           pointerEvents: seatSelected === "No seleccionado" ? "none" : "auto",
         }}
-        onClick={() => handleSubmit(seatSelected)}
+        onClick={handleSubmit}
       >
         Comprar
       </button>
