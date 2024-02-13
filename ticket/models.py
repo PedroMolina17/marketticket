@@ -46,6 +46,8 @@ class Seat(models.Model):
     price = models.FloatField()
     group_seat = models.ForeignKey(
         GroupSeat, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE,
+                              related_name='seats', default=1)
 
     def __str__(self):
         return str(self.row) + str(self.number)
