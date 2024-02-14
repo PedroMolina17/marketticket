@@ -1,77 +1,30 @@
 from django.db import models
 
-# Create your models here.
+
+class Movie(models.Model):
+    title = models.CharField(max_length=255)
+    release_date = models.DateField()
+    duration_minutes = models.IntegerField()
 
 
-class Event(models.Model):
-    event_name = models.CharField(max_length=255)
-    event_date = models.DateTimeField()
-    event_image = models.ImageField(
-        upload_to='event_images/', null=True, default='default.jpg')
-
-    def __str__(self):
-        return self.event_name
+class Screen(models.Model):
+    name = models.CharField(max_length=50)
 
 
-class Customer(models.Model):
-    name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
-    dni = models.CharField(max_length=8)
-
-    def __str__(self):
-        return self.name
+class Schedule(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
+    start_time = models.DateTimeField()
 
 
-class GroupSeat(models.Model):
-    description = models.CharField(max_length=255)
-    price = models.IntegerField()
-
-    def __str__(self):
-        return self.description
-
-
-class Status(models.Model):
-    description = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.description
+class Reservation(models.Model):
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length=100)
+    seat_number = models.CharField(max_length=10)
+    reservation_time = models.DateTimeField()
 
 
 class Seat(models.Model):
-    row = models.CharField(max_length=255)
-    number = models.IntegerField()
-    status = models.ForeignKey(
-        Status, on_delete=models.CASCADE, default=2)
-    price = models.FloatField()
-    group_seat = models.ForeignKey(
-        GroupSeat, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE,
-                              related_name='seats', default=1)
-
-    def __str__(self):
-        return str(self.row) + str(self.number)
-
-
-class Ticket(models.Model):
-    ticket_id = models.AutoField(primary_key=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    id_seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
-    ticket_code = models.CharField(max_length=255, unique=True)
-    purchase_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=255)
-    price = models.FloatField()
-
-    def __str__(self):
-        return str(self.ticket_id) + str(self.event)
-
-
-class EntryHistory(models.Model):
-    history_id = models.AutoField(primary_key=True)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    entry_time = models.DateTimeField(auto_now_add=True)
-    entry_gate = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.ticket
+    screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
+    seat_number = models.CharField(max_length=10)
+    is_available = models.BooleanField(default=True)

@@ -39,7 +39,7 @@ const SeatList = ({ eventId }) => {
       const response = await axios.post(
         `http://localhost:8000/events/buy_seat/${seatId}/`,
         {
-          // Datos del cuerpo de la solicitud, si es necesario
+          eventId: eventId,
         },
         {
           withCredentials: true,

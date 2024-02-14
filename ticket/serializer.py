@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Event, Seat
+from .models import Movie, Seat
 
 
-class EventSerializer(serializers.ModelSerializer):
+class MovieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Event
+        model = Movie
         fields = '__all__'
 
 
