@@ -7,7 +7,7 @@ const Event = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/events/api/v1/event/"
+          "http://127.0.0.1:8000/events/api/v1/movie/"
         );
         setData(response.data);
       } catch (error) {
@@ -23,16 +23,16 @@ const Event = () => {
       <div>
         {data ? (
           <ul>
-            {data.map((event) => (
-              <li key={event.id}>
+            {data.map((movie) => (
+              <li key={movie.id}>
                 <div className="flex w-full flex-col justify-center items-center">
-                  <Link to={`/event/${event.id}`}>
+                  <Link to={`/event/${movie.id}`}>
                     Ver detalles
-                    <p className="text-4xl"> {event.event_name}</p>
-                    Hora: <p>{Date(event.event_date)}</p>
+                    <p className="text-4xl"> {movie.title}</p>
+                    Hora: <p>{Date(movie.price)}</p>
                     <img
                       className=" rounded-2xl"
-                      src={event.event_image}
+                      src={movie.image}
                       alt="Event Image"
                       width={500}
                       height={500}
