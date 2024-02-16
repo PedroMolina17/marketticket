@@ -24,7 +24,7 @@ const EventDetails = () => {
     fetchEventDetails();
   }, [id]);
   return (
-    <div className="flex  max-md:flex-col ">
+    <div className="flex  max-md:flex-col  ">
       <div className="flex flex-col justify-center items-center w-full ">
         {eventDetails ? (
           <div className="flex flex-col items-center gap-9 my-8 text-3xl ">

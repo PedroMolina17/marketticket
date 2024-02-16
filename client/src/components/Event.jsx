@@ -19,33 +19,31 @@ const Event = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        {data ? (
-          <ul>
+    <div className="flex w-full">
+      {" "}
+      {data ? (
+        <div>
+          <ul className=" flex gap-8 flex-wrap justify-between">
             {data.map((movie) => (
               <li key={movie.id}>
-                <div className="flex w-full flex-col justify-center items-center">
-                  <Link to={`/event/${movie.id}`}>
-                    Ver detalles
-                    <p className="text-4xl"> {movie.title}</p>
-                    Hora: <p>{Date(movie.price)}</p>
-                    <img
-                      className=" rounded-2xl"
-                      src={movie.image}
-                      alt="Event Image"
-                      width={500}
-                      height={500}
-                    />
-                  </Link>
-                </div>
+                <Link to={`/event/${movie.id}`}>
+                  <p className="text-2xl"> {movie.title}</p>
+                  <p> Precio: {movie.price}</p>
+                  <img
+                    className=" rounded-2xl"
+                    src={movie.image}
+                    alt="Event Image"
+                    width={200}
+                    height={200}
+                  />
+                </Link>
               </li>
             ))}
-          </ul>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
+          </ul>{" "}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}{" "}
     </div>
   );
 };
