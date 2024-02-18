@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const Event = () => {
+const Movie = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -19,20 +19,18 @@ const Event = () => {
   }, []);
 
   return (
-    <div className="flex w-full">
-      {" "}
+    <div className="flex flex-col w-full m-2 ">
+      <p className="text-xl font-bold my-2 max-md:text-center ">Mas Vistos</p>
       {data ? (
-        <div>
-          <ul className=" flex gap-8 flex-wrap justify-between">
+        <div className="flex w-full">
+          <ul className=" flex gap-8 flex-wrap items-center justify-center">
             {data.map((movie) => (
               <li key={movie.id}>
-                <Link to={`/event/${movie.id}`}>
-                  <p className="text-2xl"> {movie.title}</p>
-                  <p> Precio: {movie.price}</p>
+                <Link to={`/movie/${movie.id}`}>
                   <img
                     className=" rounded-2xl"
                     src={movie.image}
-                    alt="Event Image"
+                    alt="movie Image"
                     width={200}
                     height={200}
                   />
@@ -48,4 +46,4 @@ const Event = () => {
   );
 };
 
-export default Event;
+export default Movie;
