@@ -20,7 +20,9 @@ const Movie = () => {
 
   return (
     <div className="flex flex-col w-full m-2 ">
-      <p className="text-xl font-bold my-2 max-md:text-center ">Mas Vistos</p>
+      <p className="text-xl font-bold my-2 max-md:text-center text-[#292828]">
+        Mas Vistos
+      </p>
       {data ? (
         <div className="flex w-full">
           <ul className=" flex gap-8 flex-wrap items-center justify-center">
@@ -41,7 +43,7 @@ const Movie = () => {
         </div>
       ) : (
         <p>Loading...</p>
-      )}{" "}
+      )}
     </div>
   );
 };

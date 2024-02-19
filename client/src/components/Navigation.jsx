@@ -16,14 +16,14 @@ const Navigation = () => {
           height: 600,
         }}
       >
-        <div className=" absolute flex justify-between bg-[#ffffff] mx-8 px-8 py-4 max-md:hidden top-6 left-0 right-0 text-[#b91920] rounded-xl">
-          <p className="text-2xl ">
+        <div className=" absolute flex justify-between bg-[#ffffff] mx-8 px-8 py-4 max-md:hidden top-6 left-0 right-0 text-[#df5c61] rounded-xl">
+          <p className="text-2xl flex  items-center">
             Cine
             <span className="ml-2 text-4xl">One</span>
           </p>
 
           <div>
-            <div className="flex gap-4  mx-4 text-lg font-semibold rounded-md text-[#b91920] items-center">
+            <div className="flex gap-4  mx-4 text-lg font-semibold rounded-md text-[#df6064] items-center">
               <div className="flex items-center border border-gray-300 rounded-lg py-1 px-6">
                 <input
                   placeholder="Buscar Pelicula"
@@ -41,7 +41,7 @@ const Navigation = () => {
               </Link>
               <Link
                 to="/movie"
-                className="flex items-center bg-[#b91920] px-4 py-2 gap-2 text-white rounded-lg"
+                className="flex items-center bg-[#df5c61] px-4 py-2 gap-2 text-white rounded-lg"
               >
                 <FaCircleUser /> Usuario
               </Link>
@@ -61,7 +61,7 @@ const Navigation = () => {
                 <CiVideoOn />
                 Trailer
               </Link>
-              <Link className="bg-white px-6 py-2 rounded-lg text-[#b91920] text-lg font-bold">
+              <Link className="bg-white px-6 py-2 rounded-lg text-[#df5c61] text-lg font-bold">
                 Realizar PreCompra
               </Link>
               <Link className="flex items-center gap-1">

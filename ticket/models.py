@@ -16,6 +16,8 @@ class Movie(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     image = models.ImageField(
         upload_to='movie_images/', default='default_image.jpg')
+    image_portada = models.ImageField(
+        upload_to='movie_images/', default='default_image')
     genre = models.ForeignKey(
         Genre, on_delete=models.CASCADE, default='')
 
