@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { FaStar, FaSearch } from "react-icons/fa";
 import { FaTicket, FaCircleUser } from "react-icons/fa6";
 import { CiVideoOn, CiHeart } from "react-icons/ci";
-
 const Navigation = () => {
   return (
     <>

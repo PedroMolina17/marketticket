@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Genre(models.Model):
@@ -27,23 +28,23 @@ class Movie(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Agrega campos adicionales del perfil del usuario si es necesario
-    # Por ejemplo:
     profile_picture = models.ImageField(
         upload_to='profile_images/', blank=True, null=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
+    title = models.TextField(default='Default Title')
     comment = models.TextField()
+    comment_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.title + self.user
+        return f"{self.movie.title} - {self.user.username}"
 
 
 class Screen(models.Model):

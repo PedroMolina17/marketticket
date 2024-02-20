@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import { FaStar, FaSearch } from "react-icons/fa";
-import { FaTicket, FaCircleUser } from "react-icons/fa6";
-import { CiVideoOn, CiHeart } from "react-icons/ci";
+import { FaTicket, FaCircleUser, FaComment } from "react-icons/fa6";
+import { CiHeart } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Comments from "./Comments";
 const MovieDetails = () => {
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const [data, setData] = useState();
   const { id } = useParams();
   const [allMovies, setAllMovies] = useState(null);
-
+  const [rating, setRating] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +33,18 @@ const MovieDetails = () => {
         console.error("Error fetching all movies:", error);
       }
     };
+    const fetchRating = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/events/api/v1/review/?movie=${id}`
+        );
+        setRating(response.data);
+      } catch (error) {
+        console.error("Error fetching rating movies:", error);
+      }
+    };
+
+    fetchRating();
     fetchAllMovies();
     fetchData();
   }, [id]);
@@ -79,23 +93,35 @@ const MovieDetails = () => {
               </div>
             </div>
           </div>
-
           <div className="absolute bottom-3 text-white">
-            <div className="flex flex-col justify-center items-center gap-3">
+            <div className="flex flex-col justify-center items-center gap-3 font-bold">
               <div className="flex flex-col items-center">
-                <p>Avatar : El camino </p>
+                <p>{data ? data.title : "Sin Nombre"}</p>
                 <p>Lanzamiento 15 de Febrero</p>
               </div>
 
               <div className="flex justify-between items-center gap-6 text-xl">
-                <Link className="flex items-center gap-1">
-                  <CiVideoOn />
-                  Trailer
+                <Link className="flex items-center gap-1 bg-white px-6 py-2 rounded-lg text-[#df5c61]">
+                  <FaStar />
+                  {rating ? (
+                    <p className="text-red-500">
+                      {rating.length > 0
+                        ? rating.reduce((sum, item) => sum + item.rating, 0) /
+                          rating.length
+                        : "No ratings available"}
+                    </p>
+                  ) : (
+                    "No ratings available"
+                  )}
                 </Link>
-                <Link className="bg-white px-6 py-2 rounded-lg text-[#df5c61] text-lg font-bold">
-                  Realizar PreCompra
+                <Link
+                  className="bg-white px-6 py-2 rounded-lg text-[#df5c61] text-lg font-bold flex justify-center items-center gap-2"
+                  onClick={() => setCommentsOpen(!commentsOpen)}
+                >
+                  <FaComment />
+                  Ver comentarios
                 </Link>
-                <Link className="flex items-center gap-1">
+                <Link className="bg-white px-6 py-2 rounded-lg text-[#df5c61] flex items-center gap-1">
                   <CiHeart />
                   Trailer
                 </Link>
@@ -103,6 +129,7 @@ const MovieDetails = () => {
             </div>
           </div>
         </div>{" "}
+        <Comments commentsOpen={commentsOpen} movieId={id} />
         <div className="flex flex-col w-full py-4 px-7">
           <p className="text-xl font-bold my-2 max-md:text-center text-[#292828]">
             Mas Vistos
@@ -131,7 +158,7 @@ const MovieDetails = () => {
             <p>Loading...</p>
           )}
         </div>
-      </div>
+      </div>{" "}
     </>
   );
 };

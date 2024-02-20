@@ -4,6 +4,8 @@ import { FaTicket, FaCircleUser } from "react-icons/fa6";
 import { CiVideoOn, CiHeart } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Categories from "./Categories";
+
 const Home = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
@@ -68,21 +70,21 @@ const Home = () => {
 
           <div className="absolute bottom-3 text-white">
             <div className="flex flex-col justify-center items-center gap-3">
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center font-bold">
                 <p>Avatar : El camino </p>
                 <p>Lanzamiento 15 de Febrero</p>
               </div>
 
-              <div className="flex justify-between items-center gap-6 text-xl">
+              <div className="flex justify-between items-center gap-6 text-xl font-bold">
                 <Link className="flex items-center gap-1">
-                  <CiVideoOn />
+                  <CiVideoOn style={{ strokeWidth: 2 }} />
                   Trailer
                 </Link>
                 <Link className="bg-white px-6 py-2 rounded-lg text-[#df5c61] text-lg font-bold">
                   Realizar PreCompra
                 </Link>
                 <Link className="flex items-center gap-1">
-                  <CiHeart />
+                  <CiHeart style={{ strokeWidth: 2 }} />
                   Trailer
                 </Link>
               </div>
@@ -115,6 +117,7 @@ const Home = () => {
             <p>Loading...</p>
           )}
         </div>
+        <Categories />
       </div>
     </>
   );
