@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
-import { FaStar, FaSearch } from "react-icons/fa";
-import { FaTicket, FaCircleUser } from "react-icons/fa6";
 import { CiVideoOn, CiHeart } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Categories from "./Categories";
-
+import Navigation from "./Navigation";
 const Home = () => {
+  const [userOpen, setUserOpen] = useState(false);
   const [data, setData] = useState(null);
+
+  const toggleUserMenu = () => {
+    setUserOpen(!userOpen);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,38 +39,7 @@ const Home = () => {
             height: 600,
           }}
         >
-          <div className=" absolute flex justify-between bg-[#ffffff] mx-8 px-8 py-4 max-md:hidden top-6 left-0 right-0 text-[#df5c61] rounded-xl">
-            <Link to="/" className="text-2xl flex  items-center">
-              Cine
-              <p className="ml-2 text-4xl">One</p>
-            </Link>
-
-            <div>
-              <div className="flex gap-4  mx-4 text-lg font-semibold rounded-md text-[#df6064] items-center">
-                <div className="flex items-center border border-gray-300 rounded-lg py-1 px-6">
-                  <input
-                    placeholder="Buscar Pelicula"
-                    className="bg-gray-50    "
-                  />
-                  <FaSearch />
-                </div>
-                <Link to="/" className="flex items-center gap-2">
-                  <FaStar />
-                  Favoritos
-                </Link>
-                <Link to="/movie" className="flex items-center gap-2">
-                  <FaTicket />
-                  Ingresos
-                </Link>
-                <Link
-                  to="/movie"
-                  className="flex items-center bg-[#df5c61] px-4 py-2 gap-2 text-white rounded-lg"
-                >
-                  <FaCircleUser /> Usuario
-                </Link>
-              </div>
-            </div>
-          </div>
+          <Navigation isUserOpen={userOpen} toggleUserMenu={toggleUserMenu} />
 
           <div className="absolute bottom-3 text-white">
             <div className="flex flex-col justify-center items-center gap-3">

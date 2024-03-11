@@ -1,17 +1,24 @@
 import { Link } from "react-router-dom";
-import { FaStar, FaSearch } from "react-icons/fa";
-import { FaTicket, FaCircleUser, FaComment } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa";
+import { FaComment } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Comments from "./Comments";
+import Navigation from "./Navigation";
 const MovieDetails = () => {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [data, setData] = useState();
   const { id } = useParams();
   const [allMovies, setAllMovies] = useState(null);
   const [rating, setRating] = useState();
+  const [userOpen, setUserOpen] = useState(false);
+
+  const toggleUserMenu = () => {
+    setUserOpen(!userOpen);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,38 +68,8 @@ const MovieDetails = () => {
             height: 600,
           }}
         >
-          <div className=" absolute flex justify-between bg-[#ffffff] mx-8 px-8 py-4 max-md:hidden top-6 left-0 right-0 text-[#df5c61] rounded-xl">
-            <Link to="/" className="text-2xl flex  items-center">
-              Cine
-              <p className="ml-2 text-4xl">One</p>
-            </Link>
+          <Navigation isUserOpen={userOpen} toggleUserMenu={toggleUserMenu} />
 
-            <div>
-              <div className="flex gap-4  mx-4 text-lg font-semibold rounded-md text-[#df6064] items-center">
-                <div className="flex items-center border border-gray-300 rounded-lg py-1 px-6">
-                  <input
-                    placeholder="Buscar Pelicula"
-                    className="bg-gray-50    "
-                  />
-                  <FaSearch />
-                </div>
-                <Link to="/" className="flex items-center gap-2">
-                  <FaStar />
-                  Favoritos
-                </Link>
-                <Link to="/movie" className="flex items-center gap-2">
-                  <FaTicket />
-                  Ingresos
-                </Link>
-                <Link
-                  to="/movie"
-                  className="flex items-center bg-[#df5c61] px-4 py-2 gap-2 text-white rounded-lg"
-                >
-                  <FaCircleUser /> Usuario
-                </Link>
-              </div>
-            </div>
-          </div>
           <div className="absolute bottom-3 text-white">
             <div className="flex flex-col justify-center items-center gap-3 font-bold">
               <div className="flex flex-col items-center">
