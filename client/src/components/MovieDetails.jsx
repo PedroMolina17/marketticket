@@ -106,7 +106,6 @@ const MovieDetails = () => {
             </div>
           </div>
         </div>{" "}
-        <Comments commentsOpen={commentsOpen} movieId={id} />
         <div className="flex flex-col w-full py-4 px-7">
           <p className="text-xl font-bold my-2 max-md:text-center text-[#292828]">
             Mas Vistos
@@ -134,7 +133,8 @@ const MovieDetails = () => {
           ) : (
             <p>Loading...</p>
           )}
-        </div>
+        </div>{" "}
+        <Comments commentsOpen={commentsOpen} movieId={id} />
       </div>{" "}
     </>
   );

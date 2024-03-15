@@ -35,7 +35,7 @@ const Navigation = ({ isUserOpen, toggleUserMenu }) => {
               <FaCircleUser /> Usuario
             </button>
           </div>
-        </div>{" "}
+        </div>
         {isUserOpen && (
           <div className="bg-white absolute top-full right-14 p-2 rounded-br-md rounded-bl-md w-80 flex flex-col gap-3 items-center">
             <div className="flex flex-col gap-1">
