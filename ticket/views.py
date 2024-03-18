@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 from .serializer import MovieSerializer, SeatSerializer, ReviewSerializer, UserSerializer, UserProfileSerializer
-from .models import Movie, Seat
 # Create your views here.
 from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
