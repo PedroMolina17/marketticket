@@ -7,8 +7,6 @@ const Signup = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    setValue,
     reset,
   } = useForm({
     defaultValues: {
