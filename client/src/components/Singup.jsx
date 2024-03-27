@@ -1,25 +1,39 @@
 import { useForm } from "react-hook-form";
 import { FaUser, FaKey } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
+import { useRef } from "react";
+import axios from "axios";
 const Signup = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     defaultValues: {
-      nombre: "",
+      username: "",
       correo: "",
       password: "",
+      confirmPassword: "",
     },
   });
-
+  const password = useRef(null);
+  password.current = watch("password", "");
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+    axios
+      .post("http://localhost:8000/events/api/v1/user/", data)
+      .then(function (response) {
+        console.log(response.data);
+        alert("Registro exitoso!");
+      })
+      .catch(function (error) {
+        console.error("Error al enviar solicitud:", error);
+        alert("Ocurrió un error al registrarse.");
+      });
     // reset({
-    //   nombre: '',
+    //   username: '',
     //   correo: '',
     //   fechaNacimiento: '',
     //   password: '',
@@ -38,26 +52,28 @@ const Signup = () => {
         onSubmit={onSubmit}
       >
         <label className="flex flex-col  items-center w-96 gap-1">
-          Nombre de Usuario
+          username de Usuario
           <div className="flex border rounded-md bg-white h-8 items-center gap-2 px-2">
             <FaUser />
             <input
-              name="nombre"
+              name="username"
               placeholder="Usuario"
               type="text"
               className=" bg-transparent focus:outline-none "
-              {...register("nombre", {
+              {...register("username", {
                 required: {
                   value: true,
-                  message: "Nombre es requerido",
+                  message: "username es requerido",
                 },
                 maxLength: 20,
                 minLength: 2,
               })}
             />
           </div>
-          {errors.nombre && (
-            <span className="text-xs  font-bold">{errors.nombre.message}</span>
+          {errors.username && (
+            <span className="text-xs  font-bold">
+              {errors.username.message}
+            </span>
           )}
         </label>
         <label className="flex flex-col w-96 items-center gap-1">
@@ -108,6 +124,35 @@ const Signup = () => {
           </div>
           {errors.password && (
             <span className="text-xs font-bold">{errors.password.message}</span>
+          )}
+        </label>
+        <label className="flex flex-col w-96 items-center gap-1">
+          Contraseña
+          <div className="flex border rounded-md bg-white h-8 items-center gap-2 px-2">
+            <FaKey />
+            <input
+              name="confirmPassword"
+              placeholder="password"
+              type="password"
+              className=" bg-transparent focus:outline-none "
+              {...register("confirmPassword", {
+                required: {
+                  value: true,
+                  message: "Contraseña es requerida",
+                },
+                minLength: {
+                  value: 6,
+                  message: "Contraseña debe ser mayor a 6 caracte|res",
+                },
+                validate: (value) =>
+                  value === password.current || "Las contraseñas no coinciden",
+              })}
+            />
+          </div>
+          {errors.confirmPassword && (
+            <span className="text-xs font-bold">
+              {errors.confirmPassword.message}
+            </span>
           )}
         </label>
         <button className="p-2 bg-red-500 rounded-md" type="submit">
