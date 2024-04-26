@@ -21,7 +21,6 @@ const Signup = () => {
   const password = useRef(null);
   password.current = watch("password", "");
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     axios
       .post("http://localhost:8000/events/api/v1/user/", data)
       .then(function (response) {
@@ -32,16 +31,6 @@ const Signup = () => {
         console.error("Error al enviar solicitud:", error);
         alert("Ocurrió un error al registrarse.");
       });
-    // reset({
-    //   username: '',
-    //   correo: '',
-    //   fechaNacimiento: '',
-    //   password: '',
-    //   confirmarPassword: '',
-    //   pais: 'ar',
-    //   archivo: '',
-    //   aceptaTerminos: false
-    // })
     reset();
   });
 
